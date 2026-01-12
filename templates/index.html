@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aircraft Wing Design System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<button class="theme-btn" onclick="toggleMode()">🌙 / ☀</button>
+
+<div class="container">
+    <h2>Aircraft Wing Design & Performance Analysis</h2>
+
+    <form action="/calculate" method="post">
+        Wing Span (m):
+        <input type="number" step="any" name="span" required>
+
+        Chord Length (m):
+        <input type="number" step="any" name="chord" required>
+
+        Aircraft Weight (N):
+        <input type="number" step="any" name="weight" required>
+
+        Air Density (kg/m³):
+        <input type="number" step="any" name="density" value="1.225">
+
+        Lift Coefficient (CL):
+        <input type="number" step="any" name="cl" value="1.2">
+
+        <br>
+        <button type="submit">Analyze Aircraft</button>
+    </form>
+</div>
+
+<script>
+function toggleMode(){
+    document.body.classList.toggle("dark");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aircraft Performance Result</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<button class="theme-btn" onclick="toggleMode()">🌙 / ☀</button>
+
+<div class="container">
+<h2>Performance Analysis</h2>
+
+<p>Wing Area: {{ area }} m²</p>
+
+{% if status == "safe" %}
+<h3 style="color:green;">🟢 {{ verdict }}</h3>
+<p><b>Minimum Safe Takeoff Speed:</b> {{ safe_speed }} m/s</p>
+{% else %}
+<h3 style="color:red;">🔴 {{ verdict }}</h3>
+{% endif %}
+
+<canvas id="liftChart"></canvas>
+
+<br><a href="/">Go Back</a>
+</div>
+
+<script>
+function toggleMode(){
+    document.body.classList.toggle("dark");
+}
+
+const speeds = JSON.parse('{{ speeds | tojson }}');
+const lifts = JSON.parse('{{ lifts | tojson }}');
+
+new Chart(document.getElementById('liftChart'), {
+    type: 'line',
+    data: {
+        labels: speeds,
+        datasets: [{
+            label: 'Lift Force (N)',
+            data: lifts,
+            borderWidth: 2,
+            fill: false
+        }]
+    }
+});
+</script>
+
+</body>
+</html>
