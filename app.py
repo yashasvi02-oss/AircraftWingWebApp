@@ -1,4 +1,5 @@
-    from flask import Flask, render_template, request
+from flask import Flask, render_template, request
+import os 
 
 app = Flask(__name__)
 
@@ -46,8 +47,6 @@ def calculate():
         verdict=verdict,
         status=status
     )
-
-import os
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
