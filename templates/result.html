@@ -10,20 +10,29 @@
 <button class="theme-btn" onclick="toggleMode()">🌙 / ☀</button>
 
 <div class="container">
-<h2>Performance Analysis</h2>
+    <h2>Performance Analysis - {{ name }}</h2>
 
-<p>Wing Area: {{ area }} m²</p>
+    <p><b>Wing Area:</b> {{ area }} m²</p>
 
-{% if status == "safe" %}
-<h3 style="color:green;">🟢 {{ verdict }}</h3>
-<p><b>Minimum Safe Takeoff Speed:</b> {{ safe_speed }} m/s</p>
-{% else %}
-<h3 style="color:red;">🔴 {{ verdict }}</h3>
-{% endif %}
+    {% if status == "safe" %}
+        <h3 style="color:green;">🟢 {{ verdict }}</h3>
+        <p><b>Minimum Safe Takeoff Speed:</b> {{ safe_speed }} m/s</p>
+    {% else %}
+        <h3 style="color:red;">🔴 {{ verdict }}</h3>
+    {% endif %}
 
-<canvas id="liftChart"></canvas>
+    <canvas id="liftChart"></canvas>
 
-<br><a href="/">Go Back</a>
+    <h3>Saved Aircraft Designs</h3>
+    <ul>
+        {% for d in saved_designs %}
+            <li>
+                <b>{{ d[0] }}</b> → Span: {{ d[1] }} m, Chord: {{ d[2] }} m, Weight: {{ d[3] }} N
+            </li>
+        {% endfor %}
+    </ul>
+
+    <br><a href="/">Go Back</a>
 </div>
 
 <script>

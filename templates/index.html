@@ -12,6 +12,10 @@
     <h2>Aircraft Wing Design & Performance Analysis</h2>
 
     <form action="/calculate" method="post">
+
+        Design Name:
+        <input type="text" name="name" placeholder="Design A" required>
+
         Wing Span (m):
         <input type="number" step="any" name="span" required>
 
@@ -27,8 +31,7 @@
         Lift Coefficient (CL):
         <input type="number" step="any" name="cl" value="1.2">
 
-        <br>
-        <button type="submit">Analyze Aircraft</button>
+        <button type="submit">Analyze & Save Design</button>
     </form>
 </div>
 

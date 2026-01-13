@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
-import os 
+import os
+import csv
 
 app = Flask(__name__)
 
@@ -9,6 +10,8 @@ def home():
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
+    name = request.form.get("name", "Design")
+
     span = float(request.form['span'])
     chord = float(request.form['chord'])
     weight = float(request.form['weight'])
@@ -37,15 +40,30 @@ def calculate():
         verdict = "UNSAFE DESIGN: This aircraft will stall."
         status = "unsafe"
 
+    # Save design to CSV
+    with open("designs.csv", "a", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow([name, span, chord, weight, density, cl])
+
+    # Load saved designs
+    saved_designs = []
+    with open("designs.csv", "r") as file:
+        reader = csv.reader(file)
+        next(reader)
+        for row in reader:
+            saved_designs.append(row)
+
     return render_template(
         'result.html',
+        name=name,
         area=round(area, 2),
         speeds=speeds,
         lifts=lifts,
         weight=weight,
         safe_speed=safe_speed,
         verdict=verdict,
-        status=status
+        status=status,
+        saved_designs=saved_designs
     )
 
 if __name__ == '__main__':
